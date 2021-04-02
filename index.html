@@ -88,6 +88,17 @@
         });
 	}
 
+	function stopRecording(videoElement) {
+		const stream = videoElement.srcObject;
+		const tracks = stream.getTracks();
+
+		tracks.forEach(function(track) {
+			track.stop();
+		});
+
+		videoElement.srcObject = null;
+	}
+
 </script>
 </body>
 </html>
