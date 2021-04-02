@@ -55,6 +55,39 @@
 </div>
 	
 </video>
+<script type="text/javascript">
 
+    const video = document.querySelector('#videoElement');
+	let notRecording = true;
+	let notListening = true;
+
+	document.getElementById('toggleWebcam').addEventListener('click', function() {
+
+		if (notRecording) {
+			notRecording = false;
+			startRecording(video)
+		} else {
+			notRecording = true;
+			stopRecording(video)
+		}
+
+		console.log('Webcam toggled');
+	})
+
+	document.getElementById('toggleMicrophone').addEventListener('click', function() {
+		//
+	})
+
+	function startRecording(video) {
+		window.navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            video.srcObject = stream;
+            video.onloadedmetadata = (e) => {
+                video.play();
+            };
+        });
+	}
+
+</script>
 </body>
 </html>
