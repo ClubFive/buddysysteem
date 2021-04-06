@@ -10,34 +10,40 @@
 	
 } */
 
+body {
+	background-color: gray;
+}
+
 #videoElement {
 	position: absolute;
-	left: 78px;
-	top: 15px;
-	width: 520px;
-	height: 424px;
+	z-index: -1;
+	left: 360px;
+	top: 350px;
+	width: 420px;
+	height: 280px;
 	background-color: black;
 	/* border: 1px solid red; */
 }
 
-#ipad {
-	/* width: 1224px;
-	height: 968px; */
+#buddy {
+	height: 1000px;
 }
 
 #mediaButtons {
 	position: absolute;
-	background: white;
-	border: 1px solid red;
-	height: 20px;
 	display: flex;
-	left: 440px;
-	top: 390px;
+	left: 575px;
+	top: 565px;
 	z-index: 1;
 }
 
 #mediaButtons > div {
 	margin-right: 10px;
+	background: white;
+	/* border: 1px solid red; */
+	padding-left: 5px;
+	padding-right: 5px;
+	border-radius: 5px;
 }
 
 </style>
@@ -47,10 +53,10 @@
 
 <div id="ipadContainer">
 	<div id="mediaButtons">
-		<div id="toggleWebcam">Webcam</div>
-		<div id="toggleMicrophone">Microfoon</div>
+		<!-- <div id="toggleWebcam">Webcam</div>
+		<div id="toggleMicrophone">Microfoon</div> -->
 	</div>
-	<img id="ipad" src="ipad.png">
+	<img id="buddy" src="buddy.svg">
 	<video autoplay="true" id="videoElement">
 </div>
 	
@@ -61,21 +67,42 @@
 	let notRecording = true;
 	let notListening = true;
 
+	let micButton = document.getElementById('toggleMicrophone')
+	micButton.style.setProperty('color', 'red')
+	micButton.style.setProperty('text-decoration', 'line-through')
+
+	let camButton = document.getElementById('toggleWebcam')
+	camButton.style.setProperty('color', 'red')
+	camButton.style.setProperty('text-decoration', 'line-through')
+
 	document.getElementById('toggleWebcam').addEventListener('click', function() {
 
 		if (notRecording) {
 			notRecording = false;
 			startRecording(video)
+			camButton.style.setProperty('color', 'black')
+			camButton.style.removeProperty('text-decoration');
 		} else {
 			notRecording = true;
 			stopRecording(video)
+			camButton.style.setProperty('color', 'red')
+			camButton.style.setProperty('text-decoration', 'line-through')
 		}
 
 		console.log('Webcam toggled');
 	})
 
 	document.getElementById('toggleMicrophone').addEventListener('click', function() {
-		//
+		
+		if (notListening) {
+			notListening = false;
+			micButton.style.setProperty('color', 'black')
+			micButton.style.removeProperty('text-decoration');
+		} else {
+			notListening = true;
+			micButton.style.setProperty('color', 'red')
+			micButton.style.setProperty('text-decoration', 'line-through')
+		}
 	})
 
 	function startRecording(video) {
